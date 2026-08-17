@@ -122,6 +122,42 @@
     nav ul{display:none;}
   }
 
+  /* ---------- MOBILE NAV ---------- */
+  .menu-toggle{
+    display:none; width:40px; height:40px; align-items:center; justify-content:center;
+    background:none; border:1px solid var(--ink); border-radius:var(--radius); cursor:pointer; padding:0;
+  }
+  .menu-toggle svg{width:18px; height:18px;}
+  .menu-toggle line{stroke:var(--ink); stroke-width:1.4; transition:transform .25s ease, opacity .25s ease;}
+  @media (max-width:720px){
+    .menu-toggle{display:inline-flex;}
+    .nav-cta{display:none;}
+  }
+  .menu-toggle[aria-expanded="true"] .line-top{transform:translateY(5px) rotate(45deg);}
+  .menu-toggle[aria-expanded="true"] .line-mid{opacity:0;}
+  .menu-toggle[aria-expanded="true"] .line-bot{transform:translateY(-5px) rotate(-45deg);}
+
+  .mobile-nav{
+    position:fixed; inset:0; z-index:20; background:var(--parchment);
+    display:flex; flex-direction:column; padding:96px 32px 40px;
+    transform:translateX(100%); transition:transform .4s cubic-bezier(.65,0,.35,1);
+    visibility:hidden;
+  }
+  .mobile-nav.open{transform:translateX(0); visibility:visible;}
+  .mobile-nav ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:26px;}
+  .mobile-nav a{
+    font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(26px,7vw,34px);
+    text-decoration:none; color:var(--ink); opacity:0; transform:translateY(10px);
+    transition:opacity .5s ease, transform .5s ease;
+  }
+  .mobile-nav.open a{opacity:1; transform:translateY(0);}
+  .mobile-nav.open a:nth-child(1){transition-delay:.08s;}
+  .mobile-nav.open a:nth-child(2){transition-delay:.14s;}
+  .mobile-nav.open a:nth-child(3){transition-delay:.2s;}
+  .mobile-nav.open a:nth-child(4){transition-delay:.26s;}
+  .mobile-nav .mobile-nav-cta{margin-top:auto; padding-top:32px; border-top:1px solid var(--line);}
+  @media (min-width:721px){.mobile-nav{display:none;}}
+
   /* ---------- HERO ---------- */
   .hero{
     display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:center;
@@ -240,11 +276,60 @@
   @media (prefers-reduced-motion: reduce){
     *{transition:none !important; animation:none !important; scroll-behavior:auto !important;}
   }
+
+  /* ---------- INTRO: CANETA ESCREVENDO ---------- */
+  .intro-overlay{
+    position:fixed; inset:0; z-index:100;
+    background:var(--parchment);
+    display:flex; align-items:center; justify-content:center;
+    opacity:1; visibility:visible;
+    transition:opacity .7s ease, visibility .7s ease;
+  }
+  .intro-overlay.intro-hide{opacity:0; visibility:hidden;}
+  .intro-name{
+    position:relative;
+    font-family:'Playfair Display',serif; font-style:italic; font-weight:600;
+    font-size:clamp(30px,7vw,64px); color:var(--ink); white-space:nowrap;
+  }
+  .intro-clip{
+    display:inline-block;
+    clip-path:inset(0 100% 0 0);
+    animation:introWrite 1.5s cubic-bezier(.6,0,.3,1) forwards;
+    animation-delay:.35s;
+  }
+  @keyframes introWrite{
+    0%{clip-path:inset(0 100% 0 0);}
+    100%{clip-path:inset(0 0% 0 0);}
+  }
+  .intro-nib{
+    position:absolute; top:8%; left:0; height:84%; width:3px;
+    background:var(--vermillion); border-radius:2px;
+    opacity:0;
+    animation:introNibMove 1.5s cubic-bezier(.6,0,.3,1) forwards, introNibFade 1.5s ease forwards;
+    animation-delay:.35s;
+  }
+  @keyframes introNibMove{
+    0%{left:0%;}
+    100%{left:100%;}
+  }
+  @keyframes introNibFade{
+    0%{opacity:0;} 8%{opacity:1;} 90%{opacity:1;} 100%{opacity:0;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .intro-overlay{display:none;}
+  }
 </style>
 </head>
 <body>
 <a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
 <div class="grain" aria-hidden="true"></div>
+
+<div class="intro-overlay" id="introOverlay" aria-hidden="true">
+  <div class="intro-name">
+    <span class="intro-clip">Leone DiCamp</span>
+    <span class="intro-nib"></span>
+  </div>
+</div>
 
 <header class="site-nav">
   <div class="wrap nav-inner">
@@ -257,9 +342,28 @@
         <li><a href="#contato">CONTATO</a></li>
       </ul>
     </nav>
-    <a class="nav-cta mono" href="https://wa.me/5521000000000" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="nav-cta mono" href="https://wa.me/5521967156104" target="_blank" rel="noopener">WhatsApp</a>
+    <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileNav" aria-label="Abrir menu">
+      <svg viewBox="0 0 18 18" aria-hidden="true">
+        <line class="line-top" x1="1" y1="4" x2="17" y2="4" stroke-linecap="round"/>
+        <line class="line-mid" x1="1" y1="9" x2="17" y2="9" stroke-linecap="round"/>
+        <line class="line-bot" x1="1" y1="14" x2="17" y2="14" stroke-linecap="round"/>
+      </svg>
+    </button>
   </div>
 </header>
+
+<nav id="mobileNav" class="mobile-nav" aria-label="Navegação mobile">
+  <ul>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#robustos">Projetos robustos</a></li>
+    <li><a href="#visuais">Projetos visuais</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <div class="mobile-nav-cta">
+    <a class="btn btn-solid" href="https://wa.me/5521967156104" target="_blank" rel="noopener">Falar no WhatsApp</a>
+  </div>
+</nav>
 
 <main id="conteudo">
   <div class="wrap">
@@ -279,7 +383,7 @@
         </p>
         <div class="hero-actions">
           <a class="btn btn-solid" href="#robustos">Ver projetos →</a>
-          <a class="btn btn-outline" href="https://wa.me/5521000000000" target="_blank" rel="noopener">Falar no WhatsApp</a>
+          <a class="btn btn-outline" href="https://wa.me/5521967156104" target="_blank" rel="noopener">Falar no WhatsApp</a>
         </div>
       </div>
 
@@ -414,7 +518,7 @@
         <p>Resposta rápida por WhatsApp ou e-mail. Sem compromisso na primeira conversa.</p>
         <div class="contato-actions">
           <a class="btn btn-solid" href="https://wa.me/5521967156104" target="_blank" rel="noopener">Falar no WhatsApp</a>
-          <a class="btn btn-outline" href="mailto:contato@leonedicamp.com.br">leoneonix688@gmail.com</a>
+          <a class="btn btn-outline" href="mailto:leoneonix688@gmail.com">leoneonix688@gmail.com</a>
         </div>
       </div>
     </section>
@@ -432,12 +536,71 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Hero sketch draw-in
-  window.addEventListener('load', function () {
-    setTimeout(function () {
-      document.getElementById('sketch').classList.add('draw');
-    }, 200);
-  });
+  // Mobile menu toggle
+  (function () {
+    var toggle = document.getElementById('menuToggle');
+    var mobileNav = document.getElementById('mobileNav');
+
+    function closeMenu() {
+      mobileNav.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Abrir menu');
+      document.body.style.overflow = '';
+    }
+    function openMenu() {
+      mobileNav.classList.add('open');
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Fechar menu');
+      document.body.style.overflow = 'hidden';
+    }
+
+    toggle.addEventListener('click', function () {
+      var isOpen = mobileNav.classList.contains('open');
+      isOpen ? closeMenu() : openMenu();
+    });
+    mobileNav.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', closeMenu);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeMenu();
+    });
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 720) closeMenu();
+    });
+  })();
+
+  // Intro: caneta escrevendo o nome, depois libera o hero
+  (function () {
+    var overlay = document.getElementById('introOverlay');
+    var sketch = document.getElementById('sketch');
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var alreadySeen = sessionStorage.getItem('introSeen') === '1';
+
+    function revealHeroSketch() {
+      setTimeout(function () {
+        sketch.classList.add('draw');
+      }, 150);
+    }
+
+    if (reduceMotion || alreadySeen) {
+      overlay.style.display = 'none';
+      revealHeroSketch();
+      return;
+    }
+
+    sessionStorage.setItem('introSeen', '1');
+
+    window.addEventListener('load', function () {
+      // duração da escrita (1.5s) + delay inicial (.35s) + pequena pausa de leitura
+      setTimeout(function () {
+        overlay.classList.add('intro-hide');
+        revealHeroSketch();
+        setTimeout(function () {
+          overlay.style.display = 'none';
+        }, 700); // aguarda o fade-out do overlay terminar
+      }, 2200);
+    });
+  })();
 
   // Scroll reveal for cards and pranchas
   var revealEls = document.querySelectorAll('.card, .prancha');
