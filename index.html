@@ -450,25 +450,8 @@
   .pen-info p{font-size:14px; color:var(--ink-soft); margin:0 0 14px;}
   .pen-cta{font-size:11.5px; letter-spacing:.05em; color:var(--vermillion);}
 
-  /* ---------- DEPOIMENTOS ---------- */
-  .depoimentos-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
-  @media (max-width:900px){.depoimentos-grid{grid-template-columns:1fr;}}
-  .depoimento-card{
-    border:1px solid var(--line); border-radius:var(--radius); padding:26px;
-    background:var(--parchment-light);
-    opacity:0; transform:translateY(20px);
-    transition:opacity .6s ease, transform .6s ease;
-  }
-  .depoimento-card.in{opacity:1; transform:translateY(0);}
-  .depoimento-quote{
-    font-family:'Playfair Display',serif; font-style:italic; font-size:16px;
-    color:var(--ink); margin:0 0 18px; line-height:1.5;
-  }
-  .depoimento-autor{display:flex; flex-direction:column; border-top:1px solid var(--line); padding-top:12px;}
-  .depoimento-nome{font-size:13.5px; font-weight:600; color:var(--ink);}
-  .depoimento-cargo{font-size:12px; color:var(--ink-soft);}
-
-  /* ---------- FAQ ---------- */  .faq-list{max-width:720px;}
+  /* ---------- FAQ ---------- */
+  .faq-list{max-width:720px;}
   .faq-item{border-bottom:1px solid var(--line);}
   .faq-question{
     width:100%; display:flex; justify-content:space-between; align-items:center;
@@ -837,38 +820,6 @@
       </div>
       <div class="hero-actions" style="margin-top:32px;">
         <a class="btn btn-solid" href="https://wa.me/5521967156104?text=Ol%C3%A1%2C%20quero%20um%20card%C3%A1pio%20digital%20sem%20comiss%C3%A3o%20de%20app" target="_blank" rel="noopener">Quero sair da comissão →</a>
-      </div>
-    </section>
-
-        <!-- DEPOIMENTOS -->
-    <section id="depoimentos">
-      <div class="section-head">
-        <p class="section-eyebrow mono">DEPOIMENTOS</p>
-        <h2 class="section-title">O que dizem sobre o trabalho</h2>
-        <p class="section-sub">[Espaço reservado — substitua pelos primeiros depoimentos reais assim que os projetos forem concluídos.]</p>
-      </div>
-      <div class="depoimentos-grid">
-        <div class="depoimento-card">
-          <p class="depoimento-quote">"[Depoimento do cliente aqui — o que mudou depois do projeto, em uma ou duas frases.]"</p>
-          <div class="depoimento-autor">
-            <span class="depoimento-nome">[Nome do cliente]</span>
-            <span class="depoimento-cargo">[Cargo / Empresa]</span>
-          </div>
-        </div>
-        <div class="depoimento-card">
-          <p class="depoimento-quote">"[Depoimento do cliente aqui — o que mudou depois do projeto, em uma ou duas frases.]"</p>
-          <div class="depoimento-autor">
-            <span class="depoimento-nome">[Nome do cliente]</span>
-            <span class="depoimento-cargo">[Cargo / Empresa]</span>
-          </div>
-        </div>
-        <div class="depoimento-card">
-          <p class="depoimento-quote">"[Depoimento do cliente aqui — o que mudou depois do projeto, em uma ou duas frases.]"</p>
-          <div class="depoimento-autor">
-            <span class="depoimento-nome">[Nome do cliente]</span>
-            <span class="depoimento-cargo">[Cargo / Empresa]</span>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -1274,7 +1225,7 @@
   })();
 
   // Scroll reveal for cards and pranchas
-  var revealEls = document.querySelectorAll('.card, .prancha, .pen-card, .dor-box, .depoimento-card');
+  var revealEls = document.querySelectorAll('.card, .prancha, .pen-card, .dor-box');
   var observer = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry, i) {
       if (entry.isIntersecting) {
