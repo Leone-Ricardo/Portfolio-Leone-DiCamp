@@ -166,7 +166,7 @@
 
   /* ---------- NAV ---------- */
   header.site-nav{
-    position:sticky; top:0; z-index:5;
+    position:sticky; top:0; z-index:25;
     backdrop-filter:blur(8px);
     background:rgba(239,231,211,0.86);
     border-bottom:1px solid var(--line);
@@ -202,7 +202,10 @@
     background:none; border:1px solid var(--ink); border-radius:var(--radius); cursor:pointer; padding:0;
   }
   .menu-toggle svg{width:18px; height:18px;}
-  .menu-toggle line{stroke:var(--ink); stroke-width:1.4; transition:transform .25s ease, opacity .25s ease;}
+  .menu-toggle line{
+    stroke:var(--ink); stroke-width:1.4; transition:transform .25s ease, opacity .25s ease;
+    transform-box:fill-box; transform-origin:center;
+  }
   @media (max-width:720px){
     .menu-toggle{display:inline-flex;}
     .nav-cta{display:none;}
@@ -229,7 +232,13 @@
   .mobile-nav.open a:nth-child(2){transition-delay:.14s;}
   .mobile-nav.open a:nth-child(3){transition-delay:.2s;}
   .mobile-nav.open a:nth-child(4){transition-delay:.26s;}
+  .mobile-nav.open a:nth-child(5){transition-delay:.32s;}
+  .mobile-nav.open a:nth-child(6){transition-delay:.38s;}
   .mobile-nav .mobile-nav-cta{margin-top:auto; padding-top:32px; border-top:1px solid var(--line);}
+  .mobile-nav .mobile-nav-cta a.btn{
+    font-family:'JetBrains Mono',monospace; font-style:normal; font-size:14px;
+    color:var(--parchment-light); opacity:1; transform:none; text-align:center; display:block;
+  }
   @media (min-width:721px){.mobile-nav{display:none;}}
 
   /* ---------- HERO ---------- */
@@ -516,6 +525,7 @@
     background:var(--parchment);
     display:flex; align-items:center; justify-content:center;
     opacity:1; visibility:visible;
+    pointer-events:none;
     transition:opacity .7s ease, visibility .7s ease;
   }
   .intro-overlay.intro-hide{opacity:0; visibility:hidden;}
